@@ -21,6 +21,11 @@ array1 = np.array([1, 2, 3, 4, 5])
 random_choice = np.random.choice(array1)
 """
 
+ALTERNATE_OUTPUT_2_1 = """
+import scipy.fftpack as sp
+array1 = [1, 2, 3, 4, 5]
+result = sp.fft(array1)"""
+
 class LLMHelper(object):
     def __init__(self, connection_string):
         self.connection_string = connection_string
@@ -44,5 +49,7 @@ class LLMHelper(object):
         if 'sample code' in query and 'fft' in query:
             return RUNABLE_OUTPUT_1
         elif 'sample code' in query and 'random' in query:
-            return self.sample_query2()
+            return RUNABLE_OUTPUT_2
+        elif 'different' in query and 'fft' in query:
+            return ALTERNATE_OUTPUT_2_1
         return ""
