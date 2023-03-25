@@ -8,6 +8,19 @@ Class that provides helper functions for the LLM. it contains the following func
 
 # import pyodbc
 
+RUNABLE_OUTPUT_1 = """
+import numpy as np
+array1 = np.array([1, 2, 3, 4, 5])
+result = np.fft.fft(array1)
+"""
+
+RUNABLE_OUTPUT_2 = """
+import numpy as np
+
+array1 = np.array([1, 2, 3, 4, 5])
+random_choice = np.random.choice(array1)
+"""
+
 class LLMHelper(object):
     def __init__(self, connection_string):
         self.connection_string = connection_string
@@ -28,5 +41,8 @@ class LLMHelper(object):
         :param param2: The second parameter.
         :return: The return value of the function.
         """
-        # self.cursor.execute(query)
-        return "sample_query outpu"
+        if 'sample code' in query and 'fft' in query:
+            return RUNABLE_OUTPUT_1
+        elif 'sample code' in query and 'random' in query:
+            return self.sample_query2()
+        return ""
