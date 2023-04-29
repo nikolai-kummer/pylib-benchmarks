@@ -19,8 +19,19 @@ class LLMProtocol(Protocol):
         """Disconnect from the LLM"""
 
 class ChatGPT(LLMProtocol):
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model: str="gpt-3.5-turbo", temperature: float=0.0):
         openai.api_key = api_key
+        self.model = model
+        self.temperature = temperature
+
+    def get_prompt_completion(self, prompt: str):
+        message = [{"role": "user", "content": prompt}]
+        response = openai.ChatCompletion.create(
+            model = self.model,
+            messages = message,
+            temperature=self.temperature)
+        return response.choices[0].message["content"]
+        
 
     def connect(self):
         # no need to connect to ChatGPT, just initializing the API key is sufficient
@@ -32,5 +43,4 @@ class ChatGPT(LLMProtocol):
 
     def run_query(self, query: str):
         # using OpenAI's GPT-3 to generate a response to the query
-        response = openai.Completion.create(engine="davinci", prompt=query, max_tokens=100)
-        return response.choices[0].text.strip()
+        return self.get_prompt_completion(query)
