@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 from common.alternate_runable_code import AlternateRunableCode
 from common.extract_runable_code import ExtractRunableCode
-from common.llm_helper import LLMHelper
 from common.llm_protocol import ChatGPT
 from common.parse_lib_docs import ParseLibDocs
 from common.query_timer import QueryTimer
